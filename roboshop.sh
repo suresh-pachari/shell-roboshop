@@ -63,7 +63,7 @@ do
         }
       ]
     }
-    
+    '
    echo "record update for $instance"
 
 done
