@@ -4,10 +4,7 @@ SG_ID="sg-0ef724a4dcf78d048"
 AMI_ID="ami-0220d79f3f480ecf5"
 
 
-for instance in $@
-do
-
-     instance_id=$(aws ec2 run-instances --image-id $AMI_ID \
+for INSTANCE_ID=$(aws ec2 run-instances --image-id $AMI_ID \
      --instance-type t3.micro \
      --security-group-ids $SG_ID \
      --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$instance}]" \
@@ -20,7 +17,7 @@ do
         IP=$(
 
             aws ec2 describe-instances \
-            --instance-ids i-0c52f1166c7cf7fb5 \
+            --instance-ids $INSTANCE_ID \
             --query 'Reservations[].Instances[].PublicIpAddress' \
             --output text    
         )
@@ -28,10 +25,12 @@ do
         IP=$(
 
             aws ec2 describe-instances \
-            --instance-ids i-0c52f1166c7cf7fb5 \
+            --instance-ids $INSTANCE_ID \
             --query 'Reservations[].Instances[].PrivateIpAddress' \
             --output text
 
         )
     fi
+
+    echo " ip address: $IP "
 done
