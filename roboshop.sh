@@ -13,7 +13,7 @@ for INSTANCE_ID=$(aws ec2 run-instances --image-id $AMI_ID \
 
      )
     
-    if [ $instance == "frontend"]; then
+    if [ $instance == "frontend" ]; then
         IP=$(
 
             aws ec2 describe-instances \
